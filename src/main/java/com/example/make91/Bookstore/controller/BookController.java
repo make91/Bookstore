@@ -18,8 +18,13 @@ import com.example.make91.Bookstore.model.BookRepository;
 public class BookController {
 	@Autowired
 	private BookRepository repository;
-
-	@RequestMapping(value = { "/index", "/booklist", "/"})
+	
+	@RequestMapping(value="/login")
+    public String login() {	
+        return "login";
+    }	
+	
+	@RequestMapping(value = { "/booklist", "/index" })
 	public String bookList(Model model) {
 		model.addAttribute("books", repository.findAll());
 		return "booklist";

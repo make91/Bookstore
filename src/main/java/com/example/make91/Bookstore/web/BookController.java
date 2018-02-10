@@ -1,8 +1,9 @@
-package com.example.make91.Bookstore.controller;
+package com.example.make91.Bookstore.web;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.make91.Bookstore.model.Book;
-import com.example.make91.Bookstore.model.BookRepository;
+import com.example.make91.Bookstore.domain.Book;
+import com.example.make91.Bookstore.domain.BookRepository;
 
 @Controller
 public class BookController {
@@ -56,7 +57,8 @@ public class BookController {
 		repository.save(book);
 		return "redirect:booklist";
 	}
-
+	
+	@PreAuthorize("hasAuthority('ADMIN')") //prevent deleting via url
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") Long bookId, Model model) {
 		repository.delete(bookId);

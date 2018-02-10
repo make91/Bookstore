@@ -17,7 +17,7 @@
 		<input type="submit" value="Sign Out"/>
 	</form>
 	<br />
-	<table>
+	<table th:if="${!books.empty}">
 		<tr>
 		    <th>Title</th>
 		    <th>Author</th>
@@ -31,9 +31,10 @@
     		<td th:text="${book.year}"></td>
     		<td th:text="${book.isbn}"></td>
     		<td th:text="${book.price}"></td>
- 			<td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>    		
+ 			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>        		
     	</tr>
      </table>
+     <br />
 	 <a href="/add">Add Book</a>    	
 </body>
 </html>

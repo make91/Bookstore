@@ -13,17 +13,17 @@
 </head>
 <body>
 	<h1>Login to Bookstore</h1>
-	<div th:if="${param.error}">
-            Invalid username and password.
-        </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
-		<br />
-        <form th:action="@{/login}" method="post">
-            <div><label> User Name : </label><input type="text" name="username"/></div>
-            <div><label> Password: </label><input type="password" name="password"/></div><br />
-            <div><input type="submit" value="Sign In"/></div>
-        </form> 	
+	<p th:if="${param.error}">Invalid username and password.</p>
+	<p th:if="${param.logout}">You have been logged out.</p>
+	<br />
+	<form th:action="@{/login}" method="post">
+		<label> User Name : </label><input type="text" name="username" autofocus="true" />
+		<br /><br />
+		<label> Password: </label><input type="password" name="password" />
+		<br /><br />
+		<input type="submit" value="Sign In" />
+	</form>
+	<br /><br />
+	<a th:href="@{/signup}">Sign-up</a>
 </body>
 </html>

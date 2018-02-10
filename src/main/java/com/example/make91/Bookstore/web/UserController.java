@@ -1,4 +1,4 @@
-package com.example.make91.Bookstore.controller;
+package com.example.make91.Bookstore.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.validation.Valid;
+import com.example.make91.Bookstore.domain.User;
+import com.example.make91.Bookstore.domain.UserRepository;
+import com.example.make91.Bookstore.domain.SignupForm;
 
-import com.example.make91.Bookstore.model.User;
-import com.example.make91.Bookstore.model.UserRepository;
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -37,15 +38,20 @@ public class UserController {
     public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
     	if (!bindingResult.hasErrors()) { // validation errors
     		if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) { // check password match		
-	    		String pwd = signupForm.getPassword();
-		    	BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-		    	String hashPwd = bc.encode(pwd);
-	
-		    	User newUser = new User();
-		    	newUser.setPasswordHash(hashPwd);
-		    	newUser.setUsername(signupForm.getUsername());
-		    	newUser.setRole("USER");
-		    	if (repository.findByUsername(signupForm.getUsername()) == null) { // Check if user exists
+    			if (repository.findByUsername(signupForm.getUsername()) == null) { // Check if user exists
+		    		String pwd = signupForm.getPassword();
+			    	BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+			    	String hashPwd = bc.encode(pwd);
+			    	System.out.println("=======================");
+			    	// this is for adding to BookstoreApplication.java
+			    	System.out.println(hashPwd);
+			    	System.out.println("=======================");
+			    	User newUser = new User();
+			    	newUser.setPasswordHash(hashPwd);
+			    	newUser.setUsername(signupForm.getUsername());
+			    	newUser.setEmail(signupForm.getEmail());
+		    		newUser.setRole("USER");
+			    	System.out.println("Added user " + newUser.getUsername());
 		    		repository.save(newUser);
 		    	}
 		    	else {

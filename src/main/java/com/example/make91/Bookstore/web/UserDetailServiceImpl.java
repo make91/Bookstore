@@ -1,4 +1,4 @@
-package fi.haagahelia.course.web;
+package com.example.make91.Bookstore.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import fi.haagahelia.course.domain.User;
-import fi.haagahelia.course.domain.UserRepository;
+import com.example.make91.Bookstore.domain.User;
+import com.example.make91.Bookstore.domain.UserRepository;
 
 /**
  * This class is used by spring security to authenticate and authorize user

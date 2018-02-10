@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bookstore Sign-up Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<style>
+    label {
+     	display:inline-block;
+    	width:100px;
+    }
+    </style>
+</head>
+<body>
+	<h1>Sign-up to Bookstore</h1>
+	<form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
+		<label> Username : </label><input type="text" th:field="*{username}" autofocus="true" />
+		<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
+		<br /><br />
+		<label> Email : </label><input type="text" th:field="*{email}" />
+		<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
+		<br /><br />
+		<label> Password : </label><input type="password" th:field="*{password}" />
+		<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+		<br /><br />
+		<label> Re-type Password: </label><input type="password" th:field="*{passwordCheck}" />
+		<p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>
+		<br /><br />
+		<input type="submit" value="Signup"></input>
+	</form>
+</body>
+</html>

@@ -21,11 +21,11 @@ public class BookController {
 	private BookRepository repository;
 	
 	@RequestMapping(value="/login")
-    public String login() {	
-        return "login";
+   	public String login() {	
+        	return "login";
     }	
 	
-	@RequestMapping(value = { "/booklist", "/index" })
+	@RequestMapping(value = { "/booklist", "/index", "/" })
 	public String bookList(Model model) {
 		model.addAttribute("books", repository.findAll());
 		return "booklist";
@@ -55,6 +55,7 @@ public class BookController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(Book book) {
 		repository.save(book);
+		System.out.println("Added book " + book.getTitle());
 		return "redirect:booklist";
 	}
 	
@@ -62,6 +63,7 @@ public class BookController {
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") Long bookId, Model model) {
 		repository.delete(bookId);
+                System.out.println("Deleted book with Id " + bookId);
 		return "redirect:../booklist";
 	}
 }

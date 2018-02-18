@@ -13,7 +13,7 @@
 <body>
 	<h1>Bookstore</h1>
 	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
-	<form th:action="@{/logout}" method="post">
+	<form th:action="@{logout}" method="post">
 		<input type="submit" value="Sign Out"/>
 	</form>
 	<br />
@@ -31,10 +31,10 @@
     		<td th:text="${book.year}"></td>
     		<td th:text="${book.isbn}"></td>
     		<td th:text="${book.price}"></td>
- 			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>        		
+ 			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{delete/{id}(id=${book.id})}">Delete</a></td>        		
     	</tr>
      </table>
      <br />
-	 <a href="/add">Add Book</a>    	
+	 <a href="add">Add Book</a>    	
 </body>
 </html>

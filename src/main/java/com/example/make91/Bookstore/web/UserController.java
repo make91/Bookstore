@@ -42,10 +42,10 @@ public class UserController {
 		    		String pwd = signupForm.getPassword();
 			    	BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 			    	String hashPwd = bc.encode(pwd);
-			    	System.out.println("=======================");
-			    	// this is for adding to BookstoreApplication.java
-			    	System.out.println(hashPwd);
-			    	System.out.println("=======================");
+			    	//System.out.println("=======================");
+			    	// this was for adding to BookstoreApplication.java
+			    	//System.out.println(hashPwd);
+			    	//System.out.println("=======================");
 			    	User newUser = new User();
 			    	newUser.setPasswordHash(hashPwd);
 			    	newUser.setUsername(signupForm.getUsername());

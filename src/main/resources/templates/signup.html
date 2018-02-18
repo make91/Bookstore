@@ -13,7 +13,7 @@
 </head>
 <body>
 	<h1>Sign-up to Bookstore</h1>
-	<form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
+	<form th:object="${signupform}" th:action="@{saveuser}" action="#" method="post">
 		<label> Username : </label><input type="text" th:field="*{username}" autofocus="true" />
 		<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
 		<br /><br />

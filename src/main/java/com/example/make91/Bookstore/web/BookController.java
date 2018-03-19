@@ -59,11 +59,10 @@ public class BookController {
 		return "redirect:booklist";
 	}
 	
-	@PreAuthorize("hasAuthority('ADMIN')") //prevent deleting via url
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public String deleteBook(@PathVariable("id") Long bookId, Model model) {
+	@PreAuthorize("hasAuthority('ADMIN')") //only admin can delete books
+	@RequestMapping(value = "/api/books/{id}", method = RequestMethod.DELETE)
+	public void deleteBook(@PathVariable("id") Long bookId, Model model) {
 		repository.delete(bookId);
-                System.out.println("Deleted book with Id " + bookId);
-		return "redirect:../booklist";
+        System.out.println("Deleted book with Id " + bookId);
 	}
 }

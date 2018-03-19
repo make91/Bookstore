@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		  .defaultSuccessUrl("/booklist")
 		  .permitAll()
 		  .and()
+		.csrf().disable()
 		.logout()
 		  .permitAll();
     }

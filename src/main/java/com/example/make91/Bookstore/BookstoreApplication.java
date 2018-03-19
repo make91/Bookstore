@@ -30,8 +30,8 @@ public class BookstoreApplication {
 			// only add books if there are none
 			if (i == 0) {
 				System.out.println("===ZERO BOOKS, ADDING TWO BOOKS===");
-				brepository.save(new Book("The Girl on the Train", " Paula Hawkins", 2015, "9781594633669", 10));
-				brepository.save(new Book("Into the Water", " Paula Hawkins", 2017, "9780735211209", 20));
+				brepository.save(new Book("The Girl on the Train", "Paula Hawkins", 2015, "9781594633669", 10));
+				brepository.save(new Book("Into the Water", "Paula Hawkins", 2017, "9780735211209", 20));
 			}
 			System.out.println("===========LIST OF BOOKS==============");
 			for (Book book : brepository.findAll()) {

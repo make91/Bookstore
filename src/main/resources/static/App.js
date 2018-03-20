@@ -7,6 +7,7 @@ class App extends React.Component {
         books: [],
     };
     this.deleteBook = this.deleteBook.bind(this);
+    this.addBook = this.addBook.bind(this);
    }
 
   loadBooksFromServer() {
@@ -35,13 +36,27 @@ class App extends React.Component {
     ).then(() => { 
       console.log("book deleted");
     }).catch( err => console.error(err))                
-}
+  }
+  
+  addBook(book) {
+    fetch(baseURL, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(book)
+    }).then( 
+        res => this.loadBooksFromServer()
+    ).catch( err => console.error(err))                
+  }
 
   render() {
     return (
       <div>
         <h1>Booklist</h1>
-        <BookTable books={this.state.books} deleteBook={this.deleteBook}/>
+        <BookTable books={this.state.books} deleteBook={this.deleteBook} />
+        <BookForm addBook={this.addBook}/>
       </div>
     );
   }
@@ -99,6 +114,68 @@ class Book extends React.Component {
       </tr>
     );
   }
+}
+
+class BookForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          title: '',
+          author: '',
+          year: '',
+          isbn: '',
+          price: ''
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);   
+        this.handleChange = this.handleChange.bind(this); 
+        this.state = { open: false };    
+    }
+    
+    toggle() {
+      this.setState({
+        open: !this.state.open
+      });
+    }
+    
+    handleChange(event) {
+        this.setState(
+            {[event.target.name]: event.target.value}
+        );
+    }    
+    
+    handleSubmit(event) {
+        event.preventDefault();
+        console.log("Title: " + this.state.title);
+        var newBook = {
+          title: this.state.title,
+          author: this.state.author,
+          year: parseInt(this.state.year),
+          isbn: this.state.isbn,
+          price: parseFloat(this.state.price)
+        };
+        this.props.addBook(newBook); 
+    }
+    
+    render() {
+        return (
+        <div>
+          <button className="btn btn-info" onClick={this.toggle.bind(this)}>Add book</button>
+          <div id="bookForm" style={{"max-width":600}} className={"collapse" + (this.state.open ? ' in' : '')}>
+            <div className="panel-heading"><h2>Add book</h2></div>
+            <div className="panel-body">
+            <form className="form">
+              <input type="text" placeholder="Title" className="form-control"  name="title" onChange={this.handleChange}/>    
+              <input type="text" placeholder="Author" className="form-control" name="author" onChange={this.handleChange}/>
+              <input type="text" placeholder="Year" className="form-control" name="year" onChange={this.handleChange}/>
+              <input type="text" placeholder="ISBN" className="form-control" name="isbn" onChange={this.handleChange}/>
+              <input type="text" placeholder="Price" className="form-control" name="price" onChange={this.handleChange}/>
+              <button className="btn btn-primary" onClick={this.handleSubmit}>Save</button>        
+            </form>
+            </div>
+            </div>  
+          </div>  
+        );
+    }
 }
 
 ReactDOM.render(<App />, document.getElementById('root') );	

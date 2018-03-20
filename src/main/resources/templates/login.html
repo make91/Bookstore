@@ -4,26 +4,31 @@
     <title>Bookstore Login Page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<style>
-    label {
-     	display:inline-block;
-    	width:100px;
-    }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
 <body>
-	<h1>Login to Bookstore</h1>
-	<p th:if="${param.error}">Invalid username and password.</p>
-	<p th:if="${param.logout}">You have been logged out.</p>
-	<br />
-	<form th:action="@{login}" method="post">
-		<label> User Name : </label><input type="text" name="username" autofocus="true" />
-		<br /><br />
-		<label> Password: </label><input type="password" name="password" />
-		<br /><br />
-		<input type="submit" value="Sign In" />
-	</form>
-	<br /><br />
-	<a th:href="@{signup}">Sign-up</a>
+    <div class="container">
+		<h1>Login to Bookstore</h1>
+		<p class="bg-warning" th:if="${param.error}">Invalid username and password.</p>
+		<p class="bg-info" th:if="${param.logout}">You have been logged out.</p>
+		<form th:action="@{login}" method="post">
+			<div class="form-group">
+				<label>User Name:</label>
+				<input class="form-control" type="text" name="username" autofocus="true" />
+			</div>
+			<div class="form-group">
+				<label>Password:</label>
+				<input class="form-control" type="password" name="password" />
+			</div>
+			<div class="form-group row">
+				<div class="col-md-6">
+					<input class="btn btn-default" type="submit" value="Sign In" />
+				</div>
+				<div class="col-md-6 text-right">
+					<a class="btn btn-default" th:href="@{signup}">Sign-up</a>
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

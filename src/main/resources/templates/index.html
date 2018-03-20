@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
   <title>Bookstore</title>
@@ -12,13 +12,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
-  
+
+  <div style="display: none;" sec:authorize="hasAuthority('ADMIN')" id="isadmin"></div>
+  <h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
   <div class="col-md-4" style="padding:10px">
 	    <form th:action="logout" method="post">
 	        <input type="submit" class="btn btn-danger" value="Log Out"/>
 	    </form>
   </div>
-  
+
   <div class="container" id='root'></div>
 
   <script type="text/babel" src="App.js"></script>

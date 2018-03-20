@@ -5,6 +5,7 @@ class App extends React.Component {
     super(props);
     this.state = {
         books: [],
+        isadmin: document.getElementById('isadmin') != null ? true : false
     };
     this.deleteBook = this.deleteBook.bind(this);
     this.addBook = this.addBook.bind(this);
@@ -57,7 +58,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Booklist</h1>
-        <BookTable books={this.state.books} deleteBook={this.deleteBook} />
+        <BookTable books={this.state.books} deleteBook={this.deleteBook} isadmin={this.state.isadmin}/>
         <BookForm addBook={this.addBook}/>
       </div>
     );
@@ -71,7 +72,7 @@ class BookTable extends React.Component {
 
   render() {
     var books = this.props.books.map((book, index) => 
-      <Book key={index} book={book} deleteBook={this.props.deleteBook} />
+      <Book key={index} book={book} deleteBook={this.props.deleteBook} isadmin={this.props.isadmin}/>
     );
     
     return (
@@ -83,7 +84,7 @@ class BookTable extends React.Component {
             <th>Year</th>
             <th>ISBN</th>
             <th>Price</th>
-            <th></th>
+            {this.props.isadmin && <th></th>}
           </tr>
         </thead>
         <tbody>
@@ -112,7 +113,7 @@ class Book extends React.Component {
         <td>{this.props.book.year}</td>
         <td>{this.props.book.isbn}</td>
         <td>{this.props.book.price}</td>
-        <td><button className="btn btn-danger" onClick={this.deleteBook}>Remove</button></td>
+        {this.props.isadmin && <td><button className="btn btn-danger" onClick={this.deleteBook}>Remove</button></td>}
       </tr>
     );
   }

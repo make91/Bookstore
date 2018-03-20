@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:8181/api/books/';
+const baseURL = 'api/books/';
 
 class App extends React.Component {
   constructor(props) {
@@ -28,7 +28,9 @@ class App extends React.Component {
   }
 
   deleteBook(book) {
-    fetch(book._links.self.href, {
+    const link = book._links.self.href;
+    const httpsLink = baseURL + link.split('/').pop();
+    fetch(httpsLink, {
       method: 'DELETE',
       credentials: 'same-origin'
     }).then( 

@@ -23,14 +23,19 @@ public class BookController {
 	@RequestMapping(value="/login")
    	public String login() {	
         	return "login";
-    }	
-	
-	@RequestMapping(value = { "/booklist", "/index", "/" })
-	public String bookList(Model model) {
-		model.addAttribute("books", repository.findAll());
-		return "index";
+    }
+
+    @RequestMapping(value =  "")
+	public String indexRedirect() {
+		return "redirect:/booklist";
 	}
-	
+
+	@RequestMapping(value = { "/booklist", "/index" })
+	public String bookList(Model model) {
+      model.addAttribute("books", repository.findAll());
+      return "index";
+	}
+
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
 	public @ResponseBody List<Book> bookListRest() {
 		return (List<Book>) repository.findAll();
@@ -50,13 +55,6 @@ public class BookController {
 	@RequestMapping(value = "/books", method = RequestMethod.POST)
 	public @ResponseBody Book addBookRest(@RequestBody Book book) {
     	return repository.save(book);
-	}
-
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(Book book) {
-		repository.save(book);
-		System.out.println("Added book " + book.getTitle());
-		return "redirect:booklist";
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')") //only admin can delete books

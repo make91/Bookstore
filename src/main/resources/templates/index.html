@@ -16,14 +16,14 @@
   <div style="display: none;" sec:authorize="hasAuthority('ADMIN')" id="isadmin"></div>
   <h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
   <div class="col-md-4" style="padding:10px">
-	    <form th:action="logout" method="post">
+	    <form action="./logout" method="post">
 	        <input type="submit" class="btn btn-danger" value="Log Out"/>
 	    </form>
   </div>
 
   <div class="container" id='root'></div>
 
-  <script type="text/babel" src="App.js"></script>
+  <script type="text/babel" src="./App.js"></script>
 
 </body>
 </html>
